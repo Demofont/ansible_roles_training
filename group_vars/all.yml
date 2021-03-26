@@ -1,0 +1,6 @@
+---
+mysql_root_password: 'RootPass1234!'
+mysql_user_name: 'wordpress'
+mysql_user_password: 'WordpressPass1234!'
+mysql_user_privileges: 'wordpress.*:ALL'
+

@@ -1,0 +1,39 @@
+---
+- name: 'apt update'
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: true
+- name: 'install wordpress requerments'
+  apt:
+    name: 'mysql-server={{ mysql_version }}-0ubuntu0.20.04.1'
+    state: 'present'
+  become: true
+- name: 'install python requiarments'
+  pip:
+    name: 'PyMySQL'
+    state: 'present'
+  become: true
+- name: 'set mysql root user password'
+  mysql_user:
+    name: 'root'
+    password: '{{ mysql_root_password }}'
+    login_unix_socket: '{{ mysql_unix_socket_path }}'
+    check_implicit_admin: true
+    login_user: 'root'
+    login_password: '{{ mysql_root_password }}'
+  become: true
+- name: 'create non-root db user'
+  mysql_user:
+    name: '{{ mysql_user_name }}'
+    password: '{{ mysql_user_password }}'
+    update_password: 'on_create'
+    priv: '{{ mysql_user_privileges }}'
+    login_user: 'root'
+    login_password: '{{ mysql_root_password }}'
+- name: 'check mysql service start'
+  service:
+    name: 'mysql'
+    state: 'started'
+    enabled: true
+  become: true
