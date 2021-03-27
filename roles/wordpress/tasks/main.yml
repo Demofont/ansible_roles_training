@@ -24,8 +24,9 @@
 - name: 'Upload wp-config file'
   template:
     src: 'wp-config.php.j2'
-    dest: '/opt/wordpress/wp-config.php'
+    dest: '/var/www/html/wp-config.php'
     owner: '{{ wordpress_user }}'
-    group: '{{ wordpress_group }}' 
+    group: '{{ wordpress_group }}'
+    mode: '0664'
   become: true
-  #notify: '{{ wordpress_nginx_handler_name }}'
+  notify: '{{ wordpress_nginx_handler_name }}'
