@@ -1,0 +1,31 @@
+---
+- name: 'install wordpress requerments'
+  apt:
+    name: 'unzip'
+    state: 'present'
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+- name: 'download wordpress'
+  unarchive:
+    src: '{{ wordpress_archive_source }}'
+    remote_src: true
+    dest: '/opt'
+    owner: '{{ wordpress_user }}'
+    group: '{{ wordpress_group }}'
+  become: true
+- name: 'create database'
+  mysql_db:
+    name: '{{ wordpress_mysql_db_name }}'
+    state: 'present'
+    login_user: '{{ wordpress_mysql_login_user }}'
+    login_password: '{{ wordpress_mysql_login_password }}'
+  become: true
+- name: 'Upload wp-config file'
+  template:
+    src: 'wp-config.php.j2'
+    dest: '/opt/wordpress/wp-config.php'
+    owner: '{{ wordpress_user }}'
+    group: '{{ wordpress_group }}' 
+  become: true
+  #notify: '{{ wordpress_nginx_handler_name }}'

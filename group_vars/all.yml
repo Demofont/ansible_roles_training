@@ -4,3 +4,11 @@ mysql_user_name: 'wordpress'
 mysql_user_password: 'WordpressPass1234!'
 mysql_user_privileges: 'wordpress.*:ALL'
 
+nginx_document_root: '/opt/wordpress'
+nginx_index_files: 'index.php index.html'
+nginx_server_name: 'localhost'
+nginx_php_fpm_sock_path: '/var/run/php/php{{ php_version }}-fpm.sock'
+
+wordpress_mysql_db_user: '{{ mysql_user_name }}'
+wordpress_mysql_db_password: '{{ mysql_user_password }}'
+wordpress_mysql_login_password: '{{ mysql_root_password }}'

@@ -1,0 +1,16 @@
+---
+- name: 'install php'
+  apt:
+    name:
+      - 'php-fpm=2:{{ php_version }}+75'
+      - 'php-mysql=2:{{ php_version }}+75'
+    state: 'present'
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+- name: 'php sevice is started'
+  service:
+    name: 'php{{ php_version }}-fpm'
+    state: 'started'
+    enabled: true
+  become: true
