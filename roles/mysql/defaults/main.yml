@@ -1,5 +1,5 @@
 ---
-mysql_version: '8.0.23epam-training-ansible-roles'
+mysql_version: '8.0.23'
 mysql_root_password: 'secret'
 mysql_unix_socket_path: 'var/run/mysqld/mysqld.sock'
 mysql_user_name: 'user'

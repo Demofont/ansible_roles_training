@@ -9,6 +9,11 @@
     name: 'mysql-server={{ mysql_version }}-0ubuntu0.20.04.1'
     state: 'present'
   become: true
+- name: 'install python'
+  apt:
+    name: 'python3-pip'
+    state: 'present'
+  become: true
 - name: 'install python requiarments'
   pip:
     name: 'PyMySQL'
